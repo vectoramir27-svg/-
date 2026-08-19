@@ -17,13 +17,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   intl: ^0.20.3
 
-  # Безопасность и хранение
-  flutter_secure_storage: ^9.2.2
+  # Хранилище и утилиты
   shared_preferences: ^2.3.2
-  local_auth: ^2.3.0
-  screen_protector: ^1.4.1
-
-  # Сеть и утилиты
   uuid: ^4.5.1
 
 dev_dependencies:
