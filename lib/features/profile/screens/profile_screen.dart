@@ -21,13 +21,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _chooseAvatar() {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       builder: (ctx) => Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text("Выберите аватар профиля", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text(
+              "Выберите аватар профиля",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,7 +45,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).cardColor),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
                     child: Text(emoji, style: const TextStyle(fontSize: 30)),
                   ),
                 );
@@ -58,9 +66,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text("Выход из аккаунта"),
-        content: const Text("Вы сможете войти обратно, используя ваш @username / SpeaklyID и PIN-код."),
+        content: const Text(
+          "Вы сможете войти обратно, используя ваш @username / SpeaklyID и PIN-код.",
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text("Отмена")),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Отмена"),
+          ),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
@@ -81,9 +94,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text("🔥 Протокол Fenix"),
-        content: const Text("Внимание! Все чаты, ключи шифрования и профиль будут БЕЗВОЗВРАТНО уничтожены."),
+        content: const Text(
+          "Внимание! Все чаты, ключи шифрования и профиль будут БЕЗВОЗВРАТНО уничтожены.",
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text("Отмена")),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Отмена"),
+          ),
           TextButton(
             onPressed: () async {
               Navigator.pop(ctx);
@@ -107,9 +125,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final username = _storage.username;
     final speaklyId = _storage.speaklyId;
     final isAdmin = _appState.isAdmin;
+    final cardBg = Theme.of(context).colorScheme.surface;
 
     return Scaffold(
-      appBar: AppBar(title: Text(_appState.tr('profile'))),
+      appBar: AppBar(
+        title: Text(_appState.tr('profile')),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -131,7 +152,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     bottom: 0,
                     child: Container(
                       padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(color: AppColors.primaryBlue, shape: BoxShape.circle),
+                      decoration: const BoxDecoration(
+                        color: AppColors.primaryBlue,
+                        shape: BoxShape.circle,
+                      ),
                       child: const Icon(Icons.camera_alt, size: 14, color: Colors.white),
                     ),
                   )
@@ -144,13 +168,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 6),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(12)),
-              child: Text(speaklyId, style: const TextStyle(color: AppColors.primaryBlue, fontWeight: FontWeight.w600, fontSize: 13)),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                speaklyId,
+                style: const TextStyle(
+                  color: AppColors.primaryBlue,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+              ),
             ),
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(16)),
+              decoration: BoxDecoration(
+                color: cardBg,
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Column(
                 children: [
                   Row(
@@ -209,14 +246,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _buildMenuItem(
               Icons.shield_outlined,
               _appState.tr('privacy'),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PrivacySettingsScreen())),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const PrivacySettingsScreen()),
+              ),
             ),
             if (isAdmin)
               _buildMenuItem(
                 Icons.admin_panel_settings_outlined,
                 _appState.tr('admin_panel'),
                 badge: "ADMIN",
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const AdminPanelScreen())),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const AdminPanelScreen()),
+                ),
               ),
             _buildMenuItem(Icons.people_outline, _appState.tr('switch_account'), onTap: _safeLogout),
             _buildMenuItem(
@@ -253,7 +294,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(14)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: ListTile(
         onTap: onTap,
         leading: Icon(icon, color: iconColor ?? AppColors.primaryBlue),
