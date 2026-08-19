@@ -4,6 +4,7 @@ import 'id_generation_screen.dart';
 
 class DisplayNameScreen extends StatefulWidget {
   final String username;
+
   const DisplayNameScreen({super.key, required this.username});
 
   @override
@@ -11,26 +12,20 @@ class DisplayNameScreen extends StatefulWidget {
 }
 
 class _DisplayNameScreenState extends State<DisplayNameScreen> {
-  late final TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.username);
-  }
+  final TextEditingController _controller = TextEditingController();
 
   void _submit() {
     final text = _controller.text.trim();
-    if (text.isNotEmpty) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => IdGenerationScreen(
-            username: widget.username,
-            displayName: text,
-          ),
+    if (text.isEmpty) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => IdGenerationScreen(
+          username: widget.username,
+          displayName: text,
         ),
-      );
-    }
+      ),
+    );
   }
 
   @override
@@ -48,16 +43,16 @@ class _DisplayNameScreenState extends State<DisplayNameScreen> {
                 height: 76,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.purple.shade50,
+                  color: Colors.blue.shade50,
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.person_outline, size: 40, color: AppColors.softPurple),
+                child: const Icon(Icons.person_outline, size: 40, color: AppColors.primaryBlue),
               ),
               const SizedBox(height: 24),
               const Text("Как вас зовут?", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               const Text(
-                "Это имя увидят другие пользователи",
+                "Это имя будут видеть ваши собеседники",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: AppColors.textGray, fontSize: 13),
               ),
@@ -66,14 +61,9 @@ class _DisplayNameScreenState extends State<DisplayNameScreen> {
                 controller: _controller,
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: "Отображаемое имя",
-                  hintStyle: const TextStyle(color: AppColors.textMuted),
+                  hintText: "Ваше имя (или псевдоним)",
                   filled: true,
-                  fillColor: AppColors.cardLight,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide.none,
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                 ),
                 onSubmitted: (_) => _submit(),
