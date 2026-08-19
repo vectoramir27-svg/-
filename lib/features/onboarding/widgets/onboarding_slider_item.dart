@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 
 class OnboardingSliderItem extends StatelessWidget {
-  final IconData? icon;
-  final String? letter;
-  final LinearGradient gradient;
   final String title;
-  final String desc;
+  final String description;
+  final IconData icon;
+  final LinearGradient gradient;
+  final String? letter;
 
   const OnboardingSliderItem({
     super.key,
-    this.icon,
-    this.letter,
-    required this.gradient,
     required this.title,
-    required this.desc,
+    required this.description,
+    required this.icon,
+    required this.gradient,
+    this.letter,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -30,13 +30,6 @@ class OnboardingSliderItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: gradient,
-              boxShadow: [
-                BoxShadow(
-                  color: gradient.colors.last.withOpacity(0.3),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                )
-              ],
             ),
             alignment: Alignment.center,
             child: letter != null
@@ -44,30 +37,34 @@ class OnboardingSliderItem extends StatelessWidget {
                     letter!,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 44,
+                      fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
                   )
-                : Icon(icon, size: 48, color: Colors.white),
+                : Icon(
+                    icon,
+                    size: 48,
+                    color: Colors.white,
+                  ),
           ),
-          const SizedBox(height: 36),
+          const SizedBox(height: 40),
           Text(
             title,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.bold,
-              height: 1.2,
+              height: 1.25,
             ),
           ),
           const SizedBox(height: 16),
           Text(
-            desc,
+            description,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 14,
               color: AppColors.textGray,
-              height: 1.4,
+              height: 1.45,
             ),
           ),
         ],
