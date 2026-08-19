@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/services/app_state.dart';
 import '../../chats/screens/chats_list_screen.dart';
 import '../../calls/screens/calls_history_screen.dart';
 import '../../profile/screens/profile_screen.dart';
@@ -22,6 +23,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appState = AppState();
+
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -31,24 +34,23 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
         selectedItemColor: AppColors.primaryBlue,
-        unselectedItemColor: AppColors.textGray,
-        showUnselectedLabels: true,
+        unselectedItemColor: AppColors.textMuted,
         type: BottomNavigationBarType.fixed,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Badge(
-              label: Text("1"),
-              child: Icon(Icons.chat_bubble_rounded),
-            ),
-            label: "Чаты",
+            icon: const Icon(Icons.chat_bubble_outline),
+            activeIcon: const Icon(Icons.chat_bubble),
+            label: appState.tr('chats'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.call),
-            label: "Вызовы",
+            icon: const Icon(Icons.phone_outlined),
+            activeIcon: const Icon(Icons.phone),
+            label: appState.tr('calls'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Профиль",
+            icon: const Icon(Icons.person_outline),
+            activeIcon: const Icon(Icons.person),
+            label: appState.tr('profile'),
           ),
         ],
       ),
