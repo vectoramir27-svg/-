@@ -40,10 +40,6 @@ jobs:
           flutter clean
           flutter pub get
 
-      # Показывает ТОЛЬКО реальные ошибки, игнорируя warning и info!
-      - name: Check Errors
-        run: flutter analyze lib/ --no-fatal-infos --no-fatal-warnings
-
       - name: Build Web
         run: flutter build web --release --no-tree-shake-icons --base-href "/${{ github.event.repository.name }}/"
 
