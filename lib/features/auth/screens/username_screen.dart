@@ -11,14 +11,26 @@ class UsernameScreen extends StatefulWidget {
 
 class _UsernameScreenState extends State<UsernameScreen> {
   final TextEditingController _controller = TextEditingController();
+  String? _errorMessage;
 
   void _submit() {
-    final text = _controller.text.trim();
-    if (text.length >= 3) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => DisplayNameScreen(username: text)),
-      );
+    final text = _controller.text.trim().toLowerCase();
+    final validRegex = RegExp(r'^[a-z0-9_]+$');
+
+    if (text.length < 5) {
+      setState(() => _errorMessage = "Юзернейм должен содержать минимум 5 символов");
+      return;
     }
+
+    if (!validRegex.hasMatch(text)) {
+      setState(() => _errorMessage = "Допустимы только буквы (a-z), цифры и '_'");
+      return;
+    }
+
+    setState(() => _errorMessage = null);
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => DisplayNameScreen(username: text)),
+    );
   }
 
   @override
@@ -39,16 +51,13 @@ class _UsernameScreenState extends State<UsernameScreen> {
                   color: Colors.blue.shade50,
                 ),
                 alignment: Alignment.center,
-                child: const Text(
-                  "@",
-                  style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: AppColors.primaryBlue),
-                ),
+                child: const Text("@", style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: AppColors.primaryBlue)),
               ),
               const SizedBox(height: 24),
               const Text("Создайте имя пользователя", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               const Text(
-                "Это ваш уникальный идентификатор в Speakly.\nБез номера телефона, без почты.",
+                "Минимум 5 символов (латиница, цифры, _).\nБез номера телефона и почты.",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: AppColors.textGray, fontSize: 13),
               ),
@@ -57,16 +66,15 @@ class _UsernameScreenState extends State<UsernameScreen> {
                 controller: _controller,
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: "Имя пользователя",
-                  hintStyle: const TextStyle(color: AppColors.textMuted),
+                  hintText: "username (от 5 букв)",
+                  errorText: _errorMessage,
                   filled: true,
-                  fillColor: AppColors.cardLight,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide.none,
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                 ),
+                onChanged: (_) {
+                  if (_errorMessage != null) setState(() => _errorMessage = null);
+                },
                 onSubmitted: (_) => _submit(),
               ),
               const Spacer(),
