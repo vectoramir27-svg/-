@@ -1,37 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/services/storage_service.dart';
-import '../../../core/services/security_service.dart';
 import '../../home/screens/main_navigation_screen.dart';
 
-class BiometricsScreen extends StatelessWidget {
-  final String username;
-  final String displayName;
-  final String speaklyId;
-  final String pin;
+class BiometricScreen extends StatelessWidget {
+  const BiometricScreen({super.key});
 
-  const BiometricsScreen({
-    super.key,
-    required this.username,
-    required this.displayName,
-    required this.speaklyId,
-    required this.pin,
-  });
-
-  Future<void> _completeRegistration(BuildContext context, bool useBiometrics) async {
-    final storage = StorageService();
-    await storage.saveUserData(
-      username: username,
-      displayName: displayName,
-      speaklyId: speaklyId,
-    );
-    await storage.savePin(pin);
-
-    if (useBiometrics) {
-      await SecurityService().authenticateWithBiometrics();
-    }
-
-    if (!context.mounted) return;
+  void _finish(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
       (route) => false,
@@ -41,38 +15,40 @@ class BiometricsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              const Spacer(),
+              const SizedBox(height: 20),
               Container(
-                width: 90,
-                height: 90,
+                width: 80,
+                height: 80,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.green.shade50,
+                  color: Colors.blue.shade50,
                 ),
-                child: const Icon(Icons.face_retouching_natural, size: 50, color: AppColors.successGreen),
+                alignment: Alignment.center,
+                child: const Icon(Icons.face_unlock_outlined, size: 44, color: AppColors.primaryBlue),
               ),
-              const SizedBox(height: 28),
-              const Text("Настроить Face ID?", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 24),
+              const Text("Быстрый вход", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               const Text(
-                "Быстрый и безопасный вход\nс помощью биометрии",
+                "Используйте биометрию для мгновенной разблокировки диалогов",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textGray, fontSize: 14),
+                style: TextStyle(color: AppColors.textGray, fontSize: 13),
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () => _completeRegistration(context, true),
-                child: const Text("Настроить"),
+                onPressed: () => _finish(context),
+                child: const Text("Включить биометрию"),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               TextButton(
-                onPressed: () => _completeRegistration(context, false),
-                child: const Text("Пропустить", style: TextStyle(color: AppColors.textGray, fontSize: 14)),
+                onPressed: () => _finish(context),
+                child: const Text("Пропустить", style: TextStyle(color: AppColors.textGray)),
               ),
               const SizedBox(height: 24),
             ],
