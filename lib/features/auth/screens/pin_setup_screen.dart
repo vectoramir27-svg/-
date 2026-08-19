@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/services/storage_service.dart';
-import 'biometric_screen.dart';
+import 'biometrics_screen.dart';
 
 class PinSetupScreen extends StatefulWidget {
   final String username;
@@ -48,7 +48,7 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
 
     if (!mounted) return;
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const BiometricScreen()),
+      MaterialPageRoute(builder: (_) => const BiometricsScreen()),
     );
   }
 
