@@ -21,7 +21,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter (Fixed Version)
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.5'
@@ -34,13 +34,13 @@ jobs:
       - name: Setup Web Directory
         run: |
           rm -rf web
-          flutter create --platforms=web .
+          flutter create --platforms=web --project-name=speakly .
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build Web
-        run: flutter build web --release --no-tree-shake-icons --base-href "/${{ github.event.repository.name }}/" -v
+        run: flutter build web --release --no-tree-shake-icons --base-href "/${{ github.event.repository.name }}/"
 
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
