@@ -29,32 +29,39 @@ jobs:
       - name: Disable Analytics
         run: flutter config --no-analytics
 
-      # 1. Полностью создаем чистый каркас для Android и Web
-      - name: Recreate Android and Web platforms
+      - name: Recreate Platforms
         run: |
           rm -rf android web
           flutter create . --project-name=speakly --platforms=android,web --org=com.speakly
 
-      # 2. Надежная настройка minSdk 23 и FlutterFragmentActivity
-      - name: Configure Android SDK settings
+      - name: Patch Android Config
         run: |
-          # Настройка minSdk в build.gradle (Groovy) если он есть
-          if [ -f android/app/build.gradle ]; then
-            sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 23/g' android/app/build.gradle
-            sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 23/g' android/app/build.gradle
-          fi
+          python3 -c "
+          import os
 
-          # Настройка minSdk в build.gradle.kts (Kotlin DSL) если он есть
-          if [ -f android/app/build.gradle.kts ]; then
-            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 23/g' android/app/build.gradle.kts
-            sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 23/g' android/app/build.gradle.kts
-          fi
+          # 1. Патчим build.gradle или build.gradle.kts
+          for root, dirs, files in os.walk('android/app'):
+              for f in files:
+                  if f in ['build.gradle', 'build.gradle.kts']:
+                      p = os.path.join(root, f)
+                      with open(p, 'r') as file:
+                          c = file.read()
+                      c = c.replace('flutter.minSdkVersion', '23').replace('minSdk = flutter.minSdkVersion', 'minSdk = 23')
+                      with open(p, 'w') as file:
+                          file.write(c)
 
-          # Настройка FlutterFragmentActivity для работы биометрии
-          find android/app/src -type f \( -name "MainActivity.kt" -o -name "MainActivity.java" \) | while read file; do
-            sed -i 's/FlutterActivity/FlutterFragmentActivity/g' "$file"
-            sed -i 's/import io.flutter.embedding.android.FlutterActivity/import io.flutter.embedding.android.FlutterFragmentActivity/g' "$file"
-          done
+          # 2. Патчим MainActivity под FlutterFragmentActivity для биометрии
+          for root, dirs, files in os.walk('android/app/src'):
+              for f in files:
+                  if f.startswith('MainActivity'):
+                      p = os.path.join(root, f)
+                      with open(p, 'r') as file:
+                          c = file.read()
+                      c = c.replace('FlutterActivity', 'FlutterFragmentActivity')
+                      c = c.replace('import io.flutter.embedding.android.FlutterActivity', 'import io.flutter.embedding.android.FlutterFragmentActivity')
+                      with open(p, 'w') as file:
+                          file.write(c)
+          "
 
       - name: Get Dependencies
         run: flutter pub get
