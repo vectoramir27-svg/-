@@ -23,9 +23,11 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.x'
           channel: 'stable'
           cache: true
+
+      - name: Disable Analytics
+        run: flutter config --no-analytics
 
       - name: Get Dependencies
         run: flutter pub get
