@@ -29,9 +29,11 @@ jobs:
       - name: Disable Analytics
         run: flutter config --no-analytics
 
-      # Автоматически создаем все недостающие файлы Android и Web
+      # Удаляем неполную папку android и создаем полный каркас заново
       - name: Recreate Android and Web platforms
-        run: flutter create . --platforms=android,web --org=com.speakly
+        run: |
+          rm -rf android web
+          flutter create . --project-name=speakly --platforms=android,web --org=com.speakly
 
       - name: Get Dependencies
         run: flutter pub get
