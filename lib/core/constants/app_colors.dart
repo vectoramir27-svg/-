@@ -1,49 +1,36 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Основные цвета
-  static const Color primaryBlue = Color(0xFF2F80ED);
-  static const Color accentCyan = Color(0xFF00D2FF);
-  static const Color softPurple = Color(0xFF9B51E0);
-  
-  // Фоны
-  static const Color bgLight = Color(0xFFFFFFFF);
-  static const Color bgDark = Color(0xFF121417);
-  static const Color cardLight = Color(0xFFF6F8FB);
-  static const Color cardDark = Color(0xFF1E2228);
-  
-  // Текст
-  static const Color textDark = Color(0xFF14171A);
-  static const Color textGray = Color(0xFF8C96A3);
-  static const Color textMuted = Color(0xFFB0B7C3);
-  
-  // Индикаторы и опасные действия
-  static const Color dangerRed = Color(0xFFEB5757);
-  static const Color successGreen = Color(0xFF27AE60);
-  static const Color warningOrange = Color(0xFFF2994A);
+  static const Color primaryBlue = Color(0xFF2563EB);
+  static const Color bgLight = Color(0xFFF8FAFC);
+  static const Color cardLight = Colors.white;
+  static const Color textDark = Color(0xFF0F172A);
+  static const Color textGray = Color(0xFF64748B);
+  static const Color textMuted = Color(0xFF94A3B8);
+  static const Color successGreen = Color(0xFF22C55E);
+  static const Color dangerRed = Color(0xFFEF4444);
 
-  // Градиенты для кругов и иконок онбординга
   static const LinearGradient bluePurpleGradient = LinearGradient(
-    colors: [Color(0xFF00C6FF), Color(0xFF0072FF)],
+    colors: [Color(0xFF3B82F6), Color(0xFF8B5CF6)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient shieldGradient = LinearGradient(
-    colors: [Color(0xFF6FCF97), Color(0xFF27AE60)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    colors: [Color(0xFF10B981), Color(0xFF3B82F6)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 
   static const LinearGradient ghostGradient = LinearGradient(
-    colors: [Color(0xFFBB6BD9), Color(0xFF8E44AD)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    colors: [Color(0xFF6366F1), Color(0xFFA855F7)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 
   static const LinearGradient fenixGradient = LinearGradient(
-    colors: [Color(0xFFFF7675), Color(0xFFD63031)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
+    colors: [Color(0xFFF97316), Color(0xFFEF4444)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 }
