@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
-import 'pin_code_screen.dart';
+import 'pin_setup_screen.dart';
 
 class IdGenerationScreen extends StatefulWidget {
   final String username;
@@ -39,7 +39,7 @@ class _IdGenerationScreenState extends State<IdGenerationScreen> {
   void _submit() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => PinCodeScreen(
+        builder: (_) => PinSetupScreen(
           username: widget.username,
           displayName: widget.displayName,
           speaklyId: _speaklyId,
