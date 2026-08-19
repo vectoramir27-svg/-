@@ -29,6 +29,10 @@ jobs:
       - name: Disable Analytics
         run: flutter config --no-analytics
 
+      # Автоматически создаем все недостающие файлы Android и Web
+      - name: Recreate Android and Web platforms
+        run: flutter create . --platforms=android,web --org=com.speakly
+
       - name: Get Dependencies
         run: flutter pub get
 
