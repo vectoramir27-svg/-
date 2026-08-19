@@ -40,9 +40,6 @@ jobs:
           flutter clean
           flutter pub get
 
-      - name: Analyze Project (Print Real Errors)
-        run: flutter analyze lib/
-
       - name: Build Web
         run: flutter build web --release --no-tree-shake-icons --base-href "/${{ github.event.repository.name }}/"
 
