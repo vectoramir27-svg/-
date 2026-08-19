@@ -5,14 +5,14 @@ import '../../calls/screens/active_call_screen.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   final String contactName;
-  final String username;
-  final String speaklyId;
+  final String? username;
+  final String? speaklyId;
 
   const ChatRoomScreen({
     super.key,
     required this.contactName,
-    required this.username,
-    required this.speaklyId,
+    this.username,
+    this.speaklyId,
   });
 
   @override
