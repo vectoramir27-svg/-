@@ -1,0 +1,35 @@
+name: speakly
+description: "Speakly - Secure Next-Gen Messenger"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # UI, иконки и шрифты
+  google_fonts: ^6.1.0
+  cupertino_icons: ^1.0.6
+  intl: ^0.19.0
+
+  # Безопасность и хранение
+  flutter_secure_storage: ^9.0.0
+  shared_preferences: ^2.2.2
+  local_auth: ^2.1.8
+  screen_protector: ^1.4.1
+
+  # Сеть и утилиты
+  uuid: ^4.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
