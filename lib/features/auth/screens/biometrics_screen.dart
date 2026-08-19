@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../home/screens/main_navigation_screen.dart';
 
-class BiometricScreen extends StatelessWidget {
-  const BiometricScreen({super.key});
+class BiometricsScreen extends StatelessWidget {
+  const BiometricsScreen({super.key});
 
   void _finish(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
@@ -30,7 +30,7 @@ class BiometricScreen extends StatelessWidget {
                   color: Colors.blue.shade50,
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.face_unlock_outlined, size: 44, color: AppColors.primaryBlue),
+                child: const Icon(Icons.fingerprint, size: 44, color: AppColors.primaryBlue),
               ),
               const SizedBox(height: 24),
               const Text("Быстрый вход", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
