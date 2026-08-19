@@ -38,8 +38,10 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get
 
-      - name: Build Web
-        run: flutter build web --release --no-tree-shake-icons --base-href "/"
+      - name: Compile and Print Real Errors
+        run: |
+          flutter build web --release --no-tree-shake-icons --base-href "/" -v || true
+          flutter build web --release --no-tree-shake-icons --base-href "/"
 
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
