@@ -29,11 +29,19 @@ jobs:
       - name: Disable Analytics
         run: flutter config --no-analytics
 
-      # Удаляем неполную папку android и создаем полный каркас заново
+      # 1. Генерируем платформы
       - name: Recreate Android and Web platforms
         run: |
           rm -rf android web
           flutter create . --project-name=speakly --platforms=android,web --org=com.speakly
+
+      # 2. Настраиваем minSdk 23 и FlutterFragmentActivity для биометрии
+      - name: Configure Android SDK settings
+        run: |
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 23/g' android/app/build.gradle || true
+          sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 23/g' android/app/build.gradle.kts || true
+          find android/app/src/main/kotlin -name "MainActivity.kt" -exec sed -i 's/FlutterActivity/FlutterFragmentActivity/g' {} + || true
+          find android/app/src/main/kotlin -name "MainActivity.kt" -exec sed -i 's/import io.flutter.embedding.android.FlutterActivity/import io.flutter.embedding.android.FlutterFragmentActivity/g' {} + || true
 
       - name: Get Dependencies
         run: flutter pub get
