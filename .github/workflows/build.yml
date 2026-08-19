@@ -28,19 +28,14 @@ jobs:
           cache: false
 
       - name: Disable Analytics
-        run: flutter config --no-analytics
-
-      - name: Recreate Web Platform
-        run: |
-          rm -rf web
-          flutter create . --project-name=speakly --platforms=web
+        run: flutter config --no-analytics --enable-web
 
       - name: Clean & Get Dependencies
         run: |
           flutter clean
           flutter pub get
 
-      - name: Build Web
+      - name: Build Web Application
         run: flutter build web --release --no-tree-shake-icons --base-href "/${{ github.event.repository.name }}/"
 
       - name: Upload GitHub Pages Artifact
